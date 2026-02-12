@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>For Molika ❤️</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Happy Valentine's Day 💖</h1>
+      <h2>Molika 🌹</h2>
+
+      <div class="gallery">
+        <img src="/image/photo_6_2026-02-13_00-13-30.jpg" class="active" />
+        <img src="/image/photo_2_2026-02-13_00-13-30.jpg" />
+        <img src="/image/photo_3_2026-02-13_00-13-30.jpg" />
+        <img src="/image/photo_4_2026-02-13_00-13-30.jpg" />
+        <img src="/image/photo_5_2026-02-13_00-13-30.jpg" />
+        <img src="/image/photo_1_2026-02-13_00-13-30.jpg" />
+      </div>
+
+      <p class="message">
+        I made this just for you ❤️ Tap the button when you're ready.
+      </p>
+
+      <button onclick="nextPhoto()">Next Photo 💕</button>
+      <button class="heartBtn" onclick="openHeart()">Open My Heart 💌</button>
+
+      <!-- Surprise Overlay -->
+      <div id="overlay" class="overlay hidden">
+        <div class="popup">
+          <div class="bigHeart">💖</div>
+          <h3 id="surpriseTitle"></h3>
+          <p id="surpriseText"></p>
+          <button onclick="closeHeart()">Close ✨</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
