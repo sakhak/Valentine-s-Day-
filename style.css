@@ -234,9 +234,6 @@ h1 {
   gap: 8px;
   flex-wrap: wrap;
 }
-#prevBtn{
-  margin-left: 200px;
-}
 .dot {
   width: 5px;
   height: 5px;
