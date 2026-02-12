@@ -1,42 +1,31 @@
 const herName = "Molika";
 
-// Gallery
-const imgs = Array.from(document.querySelectorAll("#slides img"));
-const dotsWrap = document.getElementById("dots");
-const nextBtn = document.getElementById("nextBtn");
-const shuffleBtn = document.getElementById("shuffleBtn");
+/* ---------------- INTRO SURPRISE ---------------- */
+const intro = document.getElementById("intro");
+const main = document.getElementById("main");
+const introType = document.getElementById("introType");
+const enterBtn = document.getElementById("enterBtn");
+// const skipBtn = document.getElementById("skipBtn");
 
-let idx = 0;
+const introMessage = `Hi ${herName}... 💖
+Before you enter…
+I want you to feel something special.
 
-function makeDots() {
-  dotsWrap.innerHTML = "";
-  imgs.forEach((_, i) => {
-    const d = document.createElement("div");
-    d.className = "dot" + (i === idx ? " active" : "");
-    d.addEventListener("click", () => setSlide(i));
-    dotsWrap.appendChild(d);
-  });
+Ready?`;
+
+let introTimer = null;
+
+function typewriter(el, text, speed = 28) {
+  clearInterval(introTimer);
+  el.textContent = "";
+  let i = 0;
+  introTimer = setInterval(() => {
+    el.textContent += text[i] || "";
+    i++;
+    if (i >= text.length) clearInterval(introTimer);
+  }, speed);
 }
-function setSlide(i) {
-  imgs[idx].classList.remove("active");
-  idx = (i + imgs.length) % imgs.length;
-  imgs[idx].classList.add("active");
-  makeDots();
-}
-function nextSlide() {
-  setSlide(idx + 1);
-}
 
-nextBtn.addEventListener("click", nextSlide);
-shuffleBtn.addEventListener("click", () => {
-  const r = Math.floor(Math.random() * imgs.length);
-  setSlide(r);
-});
-
-imgs.forEach((img) => img.addEventListener("click", nextSlide));
-makeDots();
-
-// Floating hearts (gentle)
 function floatHeart(symbol = "❤️", count = 1) {
   for (let i = 0; i < count; i++) {
     const h = document.createElement("div");
@@ -50,9 +39,105 @@ function floatHeart(symbol = "❤️", count = 1) {
     setTimeout(() => h.remove(), 8000);
   }
 }
-setInterval(() => floatHeart("❤️", 1), 550);
 
-// Modal surprise
+function heartBurst() {
+  const symbols = [
+    "💖",
+    "💘",
+    "💗",
+    "💓",
+    "💞",
+    "💕",
+    "💝",
+    "💟",
+    "❤️",
+    "🩷",
+    "🌹",
+    "🌸",
+    "🌺",
+    "🌷",
+    "✨",
+    "💫",
+    "🌟",
+    "⭐",
+    "🫶",
+    "🥰",
+    "😍",
+    "💋",
+    "🎀",
+    "🕊️",
+    "💌",
+  ];
+  for (let i = 0; i < 26; i++) {
+    floatHeart(symbols[Math.floor(Math.random() * symbols.length)], 1);
+  }
+}
+
+// gentle hearts always
+setInterval(() => floatHeart("❤️", 1), 650);
+
+// start intro typing
+typewriter(introType, introMessage, 26);
+heartBurst();
+
+function enterSite() {
+  intro.classList.add("introHide");
+  heartBurst();
+
+  setTimeout(() => {
+    intro.style.display = "none";
+    main.classList.remove("hiddenMain");
+    main.classList.add("showMain");
+  }, 520);
+}
+
+enterBtn.addEventListener("click", enterSite);
+// skipBtn.addEventListener("click", enterSite);
+
+/* -------------- GALLERY ---------------- */
+const imgs = Array.from(document.querySelectorAll("#slides img"));
+const dotsWrap = document.getElementById("dots");
+const nextBtn = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
+const shuffleBtn = document.getElementById("shuffleBtn");
+let idx = 0;
+
+function makeDots() {
+  dotsWrap.innerHTML = "";
+  imgs.forEach((_, i) => {
+    const d = document.createElement("div");
+    d.className = "dot" + (i === idx ? " active" : "");
+    d.addEventListener("click", () => setSlide(i));
+    dotsWrap.appendChild(d);
+  });
+}
+function prevSlide() {
+  setSlide(idx - 1);
+}
+
+nextBtn?.addEventListener("click", nextSlide);
+prevBtn?.addEventListener("click", prevSlide);
+
+function setSlide(i) {
+  if (!imgs.length) return;
+  imgs[idx].classList.remove("active");
+  idx = (i + imgs.length) % imgs.length;
+  imgs[idx].classList.add("active");
+  makeDots();
+}
+
+function nextSlide() {
+  setSlide(idx + 1);
+}
+
+nextBtn?.addEventListener("click", nextSlide);
+shuffleBtn?.addEventListener("click", nextSlide); // ✅ now in order
+imgs.forEach((img) => img.addEventListener("click", nextSlide));
+
+makeDots();
+setTimeout(() => setSlide(0), 50);
+
+/* -------------- MODAL LOVE MESSAGE ---------------- */
 const modal = document.getElementById("modal");
 const heartBtn = document.getElementById("heartBtn");
 const closeBtn = document.getElementById("closeBtn");
@@ -63,7 +148,7 @@ const typeEl = document.getElementById("typeText");
 const message = `I don't need a special day to love you…
 but I'm happy today exists.
 
-Molika, you are my calm in chaos,
+${herName}, you are my calm in chaos,
 my favorite thought,
 and my sweetest place to be.
 
@@ -72,7 +157,7 @@ I choose you again and again.`;
 
 let typingTimer = null;
 
-function typewriter(text, speed = 24) {
+function typeLove(text, speed = 22) {
   clearInterval(typingTimer);
   typeEl.textContent = "";
   let i = 0;
@@ -83,18 +168,10 @@ function typewriter(text, speed = 24) {
   }, speed);
 }
 
-function heartBurst() {
-  const symbols = ["💖", "💘", "💗", "❤️", "✨"];
-  for (let i = 0; i < 28; i++) {
-    const s = symbols[Math.floor(Math.random() * symbols.length)];
-    floatHeart(s, 1);
-  }
-}
-
 function openModal() {
   modal.classList.remove("hidden");
   heartBurst();
-  typewriter(message, 22);
+  typeLove(message, 22);
 }
 function closeModal() {
   modal.classList.add("hidden");
@@ -106,10 +183,6 @@ closeBtn.addEventListener("click", closeModal);
 okBtn.addEventListener("click", closeModal);
 moreHearts.addEventListener("click", heartBurst);
 
-// tap outside modal to close
 modal.addEventListener("click", (e) => {
   if (e.target === modal) closeModal();
 });
-
-// start
-setTimeout(() => setSlide(0), 50);

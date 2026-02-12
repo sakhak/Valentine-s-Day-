@@ -18,7 +18,27 @@
       <div class="grain"></div>
     </div>
 
-    <main class="wrap">
+    <!-- ✅ INTRO SURPRISE SCREEN -->
+    <div class="intro" id="intro" aria-label="Intro surprise">
+      <div class="introCard">
+        <div class="introTop">
+          <div class="introHeart">💖</div>
+          <div class="introBadge">A SECRET</div>
+        </div>
+
+        <h1 class="introTitle">For <span class="name">Molika</span></h1>
+        <p class="introSub" id="introType"></p>
+
+        <div class="introActions">
+          <button class="btn primary" id="enterBtn">Tap to Open 💌</button>
+        </div>
+
+        <div class="introHint">Turn up brightness ✨</div>
+      </div>
+    </div>
+
+    <!-- ✅ MAIN PAGE (hidden until intro ends) -->
+    <main class="wrap hiddenMain" id="main">
       <header class="top">
         <div class="badge">Valentine's</div>
         <h1>For <span class="name">Molika</span> 💖</h1>
@@ -28,16 +48,30 @@
       <section class="card">
         <div class="gallery" aria-label="Photo gallery">
           <div class="slides" id="slides">
-            <img src="/image/photo_6_2026-02-13_00-13-30.jpg" class="active" />
-            <img src="/image/photo_2_2026-02-13_00-13-30.jpg" />
-            <img src="/image/photo_3_2026-02-13_00-13-30.jpg" />
-            <img src="/image/photo_4_2026-02-13_00-13-30.jpg" />
-            <img src="/image/photo_5_2026-02-13_00-13-30.jpg" />
-            <img src="/image/photo_1_2026-02-13_00-13-30.jpg" />
+            <img src="image/photo_1_2026-02-13_01-30-54.jpg" class="active" />
+            <img src="image/photo_2_2026-02-13_01-30-54.jpg" />
+            <img src="image/photo_4_2026-02-13_01-30-54.jpg" />
+            <img src="image/photo_5_2026-02-13_01-30-54.jpg" />
+            <img src="image/photo_6_2026-02-13_01-30-54.jpg" />
+            <img src="image/photo_7_2026-02-13_01-30-54.jpg" />
+            <img src="image/photo_8_2026-02-13_01-30-54.jpg" />
+            <img src="image/photo_9_2026-02-13_01-30-54.jpg" />
+            <img src="image/photo_10_2026-02-13_01-30-54.jpg" />
+            <img src="image/photo_11_2026-02-13_01-30-54.jpg" />
+            <img src="image/photo_12_2026-02-13_01-30-54.jpg" />
+            <img src="image/photo_13_2026-02-13_01-30-54.jpg" />
+            <img src="image/photo_14_2026-02-13_01-30-54.jpg" />
+            <img src="image/photo_15_2026-02-13_01-30-54.jpg" />
+            <img src="image/photo_16_2026-02-13_01-30-54.jpg" />
           </div>
 
           <div class="galleryBar">
             <div class="dots" id="dots"></div>
+
+            <button class="iconBtn" id="prevBtn" aria-label="Previous photo">
+              ‹
+            </button>
+
             <button class="iconBtn" id="nextBtn" aria-label="Next photo">
               ›
             </button>
@@ -60,7 +94,7 @@
       </section>
 
       <footer class="foot">
-        <span>Tap photo • Phone ready 📱</span>
+        <span>Made with love for Molika ❤️</span>
       </footer>
     </main>
 
