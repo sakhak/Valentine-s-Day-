@@ -1,38 +1,89 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
     <title>For Molika ❤️</title>
     <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
-    <div class="container">
-      <h1>Happy Valentine's Day 💖</h1>
-      <h2>Molika 🌹</h2>
+    <!-- Background layers -->
+    <div class="bg">
+      <div class="aurora a1"></div>
+      <div class="aurora a2"></div>
+      <div class="grain"></div>
+    </div>
 
-      <div class="gallery">
-        <img src="/image/photo_6_2026-02-13_00-13-30.jpg" class="active" />
-        <img src="/image/photo_2_2026-02-13_00-13-30.jpg" />
-        <img src="/image/photo_3_2026-02-13_00-13-30.jpg" />
-        <img src="/image/photo_4_2026-02-13_00-13-30.jpg" />
-        <img src="/image/photo_5_2026-02-13_00-13-30.jpg" />
-        <img src="/image/photo_1_2026-02-13_00-13-30.jpg" />
-      </div>
+    <main class="wrap">
+      <header class="top">
+        <div class="badge">Valentine's</div>
+        <h1>For <span class="name">Molika</span> 💖</h1>
+        <p class="sub">A little page made with all my heart.</p>
+      </header>
 
-      <p class="message">
-        I made this just for you ❤️ Tap the button when you're ready.
-      </p>
+      <section class="card">
+        <div class="gallery" aria-label="Photo gallery">
+          <div class="slides" id="slides">
+            <img src="/image/photo_6_2026-02-13_00-13-30.jpg" class="active" />
+            <img src="/image/photo_2_2026-02-13_00-13-30.jpg" />
+            <img src="/image/photo_3_2026-02-13_00-13-30.jpg" />
+            <img src="/image/photo_4_2026-02-13_00-13-30.jpg" />
+            <img src="/image/photo_5_2026-02-13_00-13-30.jpg" />
+            <img src="/image/photo_1_2026-02-13_00-13-30.jpg" />
+          </div>
 
-      <button onclick="nextPhoto()">Next Photo 💕</button>
-      <button class="heartBtn" onclick="openHeart()">Open My Heart 💌</button>
+          <div class="galleryBar">
+            <div class="dots" id="dots"></div>
+            <button class="iconBtn" id="nextBtn" aria-label="Next photo">
+              ›
+            </button>
+          </div>
+        </div>
 
-      <!-- Surprise Overlay -->
-      <div id="overlay" class="overlay hidden">
-        <div class="popup">
-          <div class="bigHeart">💖</div>
-          <h3 id="surpriseTitle"></h3>
-          <p id="surpriseText"></p>
-          <button onclick="closeHeart()">Close ✨</button>
+        <div class="note">
+          <p>
+            If you're reading this, I just want you to know: you're appreciated,
+            adored, and chosen every day.
+          </p>
+        </div>
+
+        <div class="actions">
+          <button class="btn ghost" id="shuffleBtn">
+            Show Another Photo ✨
+          </button>
+          <button class="btn primary" id="heartBtn">Open My Heart 💌</button>
+        </div>
+      </section>
+
+      <footer class="foot">
+        <span>Tap photo • Phone ready 📱</span>
+      </footer>
+    </main>
+
+    <!-- Surprise Modal -->
+    <div
+      class="modal hidden"
+      id="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Love message"
+    >
+      <div class="modalCard">
+        <div class="modalTop">
+          <div class="heartGlow">💖</div>
+          <button class="close" id="closeBtn" aria-label="Close">✕</button>
+        </div>
+
+        <h2 class="modalTitle">Molika,</h2>
+        <p class="type" id="typeText"></p>
+
+        <div class="modalActions">
+          <button class="btn ghost" id="moreHearts">More Hearts 💘</button>
+          <button class="btn primary" id="okBtn">Aww ❤️</button>
         </div>
       </div>
     </div>

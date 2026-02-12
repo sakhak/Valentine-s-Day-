@@ -1,78 +1,115 @@
-// Photo slider
-let current = 0;
-const images = document.querySelectorAll(".gallery img");
-
-// Surprise text
 const herName = "Molika";
 
-function nextPhoto() {
-  images[current].classList.remove("active");
-  current = (current + 1) % images.length;
-  images[current].classList.add("active");
+// Gallery
+const imgs = Array.from(document.querySelectorAll("#slides img"));
+const dotsWrap = document.getElementById("dots");
+const nextBtn = document.getElementById("nextBtn");
+const shuffleBtn = document.getElementById("shuffleBtn");
+
+let idx = 0;
+
+function makeDots() {
+  dotsWrap.innerHTML = "";
+  imgs.forEach((_, i) => {
+    const d = document.createElement("div");
+    d.className = "dot" + (i === idx ? " active" : "");
+    d.addEventListener("click", () => setSlide(i));
+    dotsWrap.appendChild(d);
+  });
+}
+function setSlide(i) {
+  imgs[idx].classList.remove("active");
+  idx = (i + imgs.length) % imgs.length;
+  imgs[idx].classList.add("active");
+  makeDots();
+}
+function nextSlide() {
+  setSlide(idx + 1);
 }
 
-// Floating hearts (background)
-function createHeart() {
-  const heart = document.createElement("div");
-  heart.classList.add("heart");
-  heart.innerHTML = "❤️";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = Math.random() * 20 + 15 + "px";
-  heart.style.animationDuration = Math.random() * 3 + 3 + "s";
-  document.body.appendChild(heart);
+nextBtn.addEventListener("click", nextSlide);
+shuffleBtn.addEventListener("click", () => {
+  const r = Math.floor(Math.random() * imgs.length);
+  setSlide(r);
+});
 
-  setTimeout(() => heart.remove(), 6000);
-}
-setInterval(createHeart, 500);
+imgs.forEach((img) => img.addEventListener("click", nextSlide));
+makeDots();
 
-// Heart burst effect (surprise)
-function heartBurst() {
-  for (let i = 0; i < 25; i++) {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = Math.random() > 0.5 ? "💖" : "💘";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = Math.random() * 30 + 18 + "px";
-    heart.style.animationDuration = Math.random() * 2 + 2 + "s";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 5000);
+// Floating hearts (gentle)
+function floatHeart(symbol = "❤️", count = 1) {
+  for (let i = 0; i < count; i++) {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.textContent = symbol;
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.fontSize = Math.random() * 18 + 14 + "px";
+    h.style.animationDuration = Math.random() * 3 + 4 + "s";
+    h.style.opacity = (Math.random() * 0.5 + 0.45).toFixed(2);
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 8000);
   }
 }
+setInterval(() => floatHeart("❤️", 1), 550);
 
-// Typewriter effect
-function typeText(el, text, speed = 35) {
-  el.textContent = "";
+// Modal surprise
+const modal = document.getElementById("modal");
+const heartBtn = document.getElementById("heartBtn");
+const closeBtn = document.getElementById("closeBtn");
+const okBtn = document.getElementById("okBtn");
+const moreHearts = document.getElementById("moreHearts");
+const typeEl = document.getElementById("typeText");
+
+const message = `I don't need a special day to love you…
+but I'm happy today exists.
+
+Molika, you are my calm in chaos,
+my favorite thought,
+and my sweetest place to be.
+
+Happy Valentine's Day 💖
+I choose you again and again.`;
+
+let typingTimer = null;
+
+function typewriter(text, speed = 24) {
+  clearInterval(typingTimer);
+  typeEl.textContent = "";
   let i = 0;
-  const timer = setInterval(() => {
-    el.textContent += text[i];
+  typingTimer = setInterval(() => {
+    typeEl.textContent += text[i] || "";
     i++;
-    if (i >= text.length) clearInterval(timer);
+    if (i >= text.length) clearInterval(typingTimer);
   }, speed);
 }
 
-// Open Heart surprise
-function openHeart() {
-  document.getElementById("overlay").classList.remove("hidden");
+function heartBurst() {
+  const symbols = ["💖", "💘", "💗", "❤️", "✨"];
+  for (let i = 0; i < 28; i++) {
+    const s = symbols[Math.floor(Math.random() * symbols.length)];
+    floatHeart(s, 1);
+  }
+}
+
+function openModal() {
+  modal.classList.remove("hidden");
   heartBurst();
-
-  const title = document.getElementById("surpriseTitle");
-  const text = document.getElementById("surpriseText");
-
-  title.textContent = `Molika 💖`;
-
-  const msg = `From the first moment I met you,
-my heart started choosing you.
-
-You are my favorite person,
-my peace, my happiness,
-and my forever love ❤️
-
-Happy Valentine’s Day, ${herName} 🌹`;
-
-  typeText(text, msg, 28);
+  typewriter(message, 22);
+}
+function closeModal() {
+  modal.classList.add("hidden");
+  clearInterval(typingTimer);
 }
 
-// Close overlay
-function closeHeart() {
-  document.getElementById("overlay").classList.add("hidden");
-}
+heartBtn.addEventListener("click", openModal);
+closeBtn.addEventListener("click", closeModal);
+okBtn.addEventListener("click", closeModal);
+moreHearts.addEventListener("click", heartBurst);
+
+// tap outside modal to close
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) closeModal();
+});
+
+// start
+setTimeout(() => setSlide(0), 50);
